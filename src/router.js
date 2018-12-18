@@ -22,7 +22,14 @@ export default new Router({
     {
       path: '/b/:bid',
       name: 'board',
-      component: () => import(/* webpackChunkName: "board" */ './components/Board.vue')
+      component: () => import(/* webpackChunkName: "board" */ './components/Board.vue'),
+      children: [
+        {
+          path: 'c/:cid',
+          name: 'cardview',
+          component: () => import(/* webpackChunkName: "cardview" */ './components/CardView.vue')
+        }
+      ]
     },
     {
       path: '*',
