@@ -5,6 +5,12 @@ import NotFound from './components/NotFound.vue'
 
 Vue.use(Router)
 
+const requireAuth = (to, from, next) => {
+  const isAuth = localStorage.getItem('token')
+  const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`
+  isAuth? next(): next(loginPath)
+}
+
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -12,7 +18,8 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      beforeEnter: requireAuth
     },
     {
       path: '/about',
@@ -28,10 +35,12 @@ export default new Router({
       path: '/b/:bid',
       name: 'board',
       component: () => import(/* webpackChunkName: "board" */ './components/Board.vue'),
+      beforeEnter: requireAuth,
       children: [
         {
           path: 'c/:cid',
           name: 'cardview',
+          beforeEnter: requireAuth,
           component: () => import(/* webpackChunkName: "cardview" */ './components/CardView.vue')
         }
       ]
