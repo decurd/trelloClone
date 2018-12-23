@@ -64,9 +64,8 @@ export default {
     //   this.$store.commit('SET_IS_ADD_BOARD', true)
     //   console.log("addBoard()");
     // },
-    onAddBoard(title) {
-      board.create(title)
-        .then(() => this.fetchData())
+    onAddBoard() {
+     this.fetchData()
     }
   }
 }
