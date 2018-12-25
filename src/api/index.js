@@ -20,7 +20,6 @@ const request = (method, url, data) => {
     })
 }
 
-
 export const setAuthInHeader = token => {
     axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null
 }
